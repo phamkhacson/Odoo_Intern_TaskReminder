@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="mail_template_task_reminder" model="mail.template">
+            <field name="name">Deadline Reminder!!</field>
+            <field name="email_from">{{object.company_id.name}}&lt;{{object.company_id.email}}&gt;</field>
+            <field name="email_to">{{ object.get_user_email() }}</field>
+            <field name="subject">Task Deadline Today - {{object.date_deadline}}</field>
+            <field name="model_id" ref="task_deadline_reminder.model_project_task"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html" type="html">
+                <div class="page">
+                    <div>
+                        <p>Hello <t t-out="object.get_user_name()"/>,</p>
+                        <p> This Email Is To Remind  You That You Have Task As  Below Listed Which Are Due On Today. </p>
+                    </div>
+                    <div>
+                       <table class="table table-condensed">
+                             <thead>
+                                <tr>
+                                    <th style="background-color:#9b9da0 !important;">Task</th>
+                                    <th style="background-color:#9b9da0 !important;">Project</th>
+                                    <th style="background-color:#9b9da0 !important;">Deadline</th>
+                                    <th style="background-color:#9b9da0 !important;">Assigned To</th>
+                                    <th style="background-color:#9b9da0 !important;">Link</th>
+                                </tr>
+                             </thead>
+                             <tbody>
+                                <tr>
+                                    <td><span><t t-out="object.name"/></span></td>
+                                    <td><span><t t-out="object.project_id.name"/></span></td>
+                                    <td><span><t t-out="object.date_deadline"/></span></td>
+                                    <td><span><t t-out="object.get_user_name()"/></span></td>
+                                    <td><a href="/web/login/">View Now</a></td>
+                                </tr>
+                             </tbody>
+                       </table>
+                    </div>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>
